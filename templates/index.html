@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Student Project Portal</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="#">Student Project Submission Portal</a>
+    <div>
+      <a href="{{ url_for('register') }}">Register</a>
+      <a href="{{ url_for('login') }}">Login</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container text-center mt-5 project-container">
+  <h1 class="fw-bold text-warning">Welcome to the Project Submission Portal</h1>
+  <p class="lead text-light">Submit, manage, and track your projects easily from anywhere.</p>
+</div>
+
+
+
+
+</body>
+</html>

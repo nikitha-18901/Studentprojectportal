@@ -1,0 +1,113 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  color: #fff;
+  min-height: 100vh;
+  background-image: url("bg.jpg");
+
+  background-size: cover;
+}
+.project-container {
+    background: url('../images/bg.jpg') no-repeat center center;
+    background-size: cover;
+    padding: 100px 0;
+    border-radius: 15px;
+}
+
+
+.navbar {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  padding: 15px;
+}
+
+.navbar a {
+  color: #fff !important;
+  font-weight: 500;
+  margin-left: 15px;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+  color: #ffd369 !important;
+}
+
+.card {
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 15px;
+  color: #fff;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.card h3 {
+  color: #ffd369;
+  text-align: center;
+  font-weight: bold;
+}
+
+.form-control {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #fff;
+}
+
+.form-control::placeholder {
+  color: #ddd;
+}
+
+.form-control:focus {
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+  border: 1px solid #ffd369;
+}
+
+.btn-custom {
+  background: linear-gradient(45deg, #ff512f, #dd2476);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  transition: 0.3s;
+}
+
+.btn-custom:hover {
+  transform: scale(1.05);
+  background: linear-gradient(45deg, #dd2476, #ff512f);
+}
+
+.table {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table th {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #ffd369;
+}
+
+.table td a {
+  color: #ffd369;
+  text-decoration: none;
+}
+
+.table td a:hover {
+  color: #ffb703;
+  text-decoration: underline;
+}
+
+footer {
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  text-align: center;
+  padding: 8px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 14px;
+}
