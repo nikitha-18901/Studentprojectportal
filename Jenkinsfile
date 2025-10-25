@@ -9,7 +9,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 // Pull code from GitHub
-                git branch: 'main', url: 'https://github.com/nikitha-18901/studentprojectportal/.git'
+                git branch: 'main', url: 'https://github.com/nikitha-18901/studentprojectportal.git'
             }
         }
 
