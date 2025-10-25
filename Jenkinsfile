@@ -22,20 +22,19 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image') {
+      stage('Push Docker Image') {
     steps {
         withCredentials([string(credentialsId: 'dockerhub-pass', variable: 'DOCKERHUB_PASS')]) {
             echo 'Logging in to Docker Hub and pushing image...'
-            // Use separate login command without piping (Windows-friendly)
             bat """
+            docker logout
             docker login -u %DOCKERHUB_USER% -p %DOCKERHUB_PASS%
             docker push %DOCKER_IMAGE%:latest
             """
         }
     }
 }
-
-        stage('Deploy to Kubernetes') {
+     stage('Deploy to Kubernetes') {
             steps {
                 echo 'Deploying to Kubernetes...'
                 bat 'kubectl apply -f k8s\\k8s-deployment.yaml'
