@@ -2,52 +2,64 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "nikithan01821/student-portal"
+        DOCKER_IMAGE = "student-portal:latest"
+        CONTAINER_NAME = "student-portal"
+        HOST_PORT = "5000"
+        CONTAINER_PORT = "5000"
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                // Pull code from GitHub
+                echo 'Cloning the Student Project Portal repository...'
                 git branch: 'main', url: 'https://github.com/nikitha-18901/studentprojectportal.git'
             }
         }
- stage('Build Docker Image') {
+
+        stage('Build') {
             steps {
-                echo '🔹 Building Docker image for Student Project Portal...'
-                bat '''
-                    docker build -t nikithan01821/student-portal:latest .
-                '''
+                echo 'Building the Student Project Portal...'
+                bat 'echo Build stage completed.'
+                // Optional: install dependencies
+                // bat 'pip install -r requirements.txt'
             }
         }
 
-        stage('Push Docker Image') {
+        stage('Docker Build') {
             steps {
-                withCredentials([string(credentialsId: 'dockerhub-pass', variable: 'DOCKERHUB_PASS')]) {
-                    // Login and push image to Docker Hub
-                    sh """
-                    echo $DOCKERHUB_PASS | docker login -u yourdockerhubusername --password-stdin
-                    docker push $DOCKER_IMAGE:latest
-                    """
-                }
+                echo 'Building Docker image for Student Project Portal...'
+                bat """
+                    docker build -t %DOCKER_IMAGE% .
+                """
             }
         }
 
-        stage('Deploy to Kubernetes') {
+        stage('Docker Run') {
             steps {
-                // Apply Kubernetes deployment and service YAMLs
-                sh 'kubectl apply -f k8s/k8s-deployment.yaml'
-                sh 'kubectl apply -f k8s/k8s-service.yaml'
+                echo 'Running Docker container for Student Project Portal...'
+                bat """
+                    docker stop %CONTAINER_NAME% || echo "No existing container to stop"
+                    docker rm %CONTAINER_NAME% || echo "No existing container to remove"
+                    docker run -d --name %CONTAINER_NAME% -p %HOST_PORT%:%CONTAINER_PORT% %DOCKER_IMAGE%
+                """
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deployment successful!'
+                echo "Open http://localhost:%HOST_PORT% in your browser to access the Student Project Portal."
+                bat 'docker ps'
             }
         }
     }
 
     post {
         success {
-            echo "✅ Pipeline completed successfully!"
+            echo 'Pipeline executed successfully ✅'
         }
         failure {
-            echo "❌ Pipeline failed. Check logs!"
+            echo 'Pipeline failed ❌ — please check the logs for details.'
         }
     }
 }
