@@ -13,13 +13,12 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+           stage('Build Docker Image') {
             steps {
-                script {
-                    // Build Docker image
-                    sh 'docker build -t student-portal:latest .'
-                }
+                echo 'Building Docker image...'
+                bat "docker build -t %DOCKER_IMAGE%:latest ."
             }
+        }
         }
 
         stage('Push Docker Image') {
