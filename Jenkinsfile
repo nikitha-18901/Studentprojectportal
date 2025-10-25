@@ -23,17 +23,17 @@ pipeline {
         }
 
         stage('Push Docker Image') {
-            steps {
-                withCredentials([string(credentialsId: 'dockerhub-pass', variable: 'DOCKERHUB_PASS')]) {
-                    echo 'Logging in to Docker Hub and pushing image...'
-                    // Docker login using your Docker Hub credentials stored in Jenkins
-                    bat """
-                    echo %DOCKERHUB_PASS% | docker login -u %DOCKERHUB_USER% --password-stdin
-                    docker push %DOCKER_IMAGE%:latest
-                    """
-                }
-            }
+    steps {
+        withCredentials([string(credentialsId: 'dockerhub-pass', variable: 'DOCKERHUB_PASS')]) {
+            echo 'Logging in to Docker Hub and pushing image...'
+            // Use separate login command without piping (Windows-friendly)
+            bat """
+            docker login -u %DOCKERHUB_USER% -p %DOCKERHUB_PASS%
+            docker push %DOCKER_IMAGE%:latest
+            """
         }
+    }
+}
 
         stage('Deploy to Kubernetes') {
             steps {
