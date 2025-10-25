@@ -1,8 +1,9 @@
-pipeline {
+ppipeline {
     agent any
 
     environment {
         DOCKER_IMAGE = "nikithan01821/student-portal"
+        DOCKERHUB_USER = "nikithan01821"
     }
 
     stages {
@@ -16,6 +17,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo 'Building Docker image...'
+                // Build image with 'latest' tag
                 bat "docker build -t %DOCKER_IMAGE%:latest ."
             }
         }
@@ -24,8 +26,9 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'dockerhub-pass', variable: 'DOCKERHUB_PASS')]) {
                     echo 'Logging in to Docker Hub and pushing image...'
+                    // Docker login using your Docker Hub credentials stored in Jenkins
                     bat """
-                    echo %DOCKERHUB_PASS% | docker login -u yourdockerhubusername --password-stdin
+                    echo %DOCKERHUB_PASS% | docker login -u %DOCKERHUB_USER% --password-stdin
                     docker push %DOCKER_IMAGE%:latest
                     """
                 }
