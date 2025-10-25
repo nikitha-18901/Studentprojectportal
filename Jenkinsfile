@@ -12,13 +12,13 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/nikitha-18901/studentprojectportal.git'
             }
         }
-
-           stage('Build Docker Image') {
+ stage('Build Docker Image') {
             steps {
-                echo 'Building Docker image...'
-                bat "docker build -t %DOCKER_IMAGE%:latest ."
+                echo '🔹 Building Docker image for Student Project Portal...'
+                bat '''
+                    docker build -t nikithan01821/student-portal:latest .
+                '''
             }
-        }
         }
 
         stage('Push Docker Image') {
