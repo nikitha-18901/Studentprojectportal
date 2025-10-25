@@ -22,18 +22,6 @@ pipeline {
             }
         }
 
- stage('Push Docker Image') {
-            steps {
-                withCredentials([string(credentialsId: 'dockerhub-pass', variable: 'DOCKERHUB_PASS')]) {
-                    // Login and push image to Docker Hub
-                    sh """
-                    echo $DOCKERHUB_PASS | docker login -u yourdockerhubusername --password-stdin
-                    docker push $DOCKER_IMAGE:latest
-                    """
-                }
-            }
-      
-
         stage('Deploy to Kubernetes') {
             steps {
                 // Apply Kubernetes deployment and service YAMLs
@@ -41,7 +29,6 @@ pipeline {
                 sh 'kubectl apply -f k8s/k8s-service.yaml'
             }
         }
-    }
 
    
 
